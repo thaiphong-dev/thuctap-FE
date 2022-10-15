@@ -10,10 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import userApi from '~/api/usersApi'
 
 export default function Login() {
-    const notify = () => toast("Sai Thông Tin Đăng Nhập");
+    const notify = () => toast("Sai thông tin đăng nhập");
     const navigate = useNavigate()
     const { userLogin } = useSelector(state => state.UserReducer)
     console.log("userLogin",userLogin)
+
+    const nextPage = localStorage.getItem("nextPage");
+    console.log("sadsada", nextPage)
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
@@ -29,7 +32,15 @@ export default function Login() {
                         type: "LOGIN",
                         values: values.data
                     })
-                    navigate('/')
+                    console.log("values.data", values.data);
+                    if( values.data.maQuyen === 4){
+                        if(nextPage !== null)
+                        navigate('/checkout')
+                        else 
+                        navigate('/')
+                    } 
+                    else navigate('/admin/carts')
+
                 }).catch((err) => {
                     return (
                         notify()

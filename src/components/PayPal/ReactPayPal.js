@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import adminApi from "~/api/adminApi";
 
+let moneya= 1
 export default function ReactPayPal(props) {
+  const [money, setMoney] = useState(1)
+  const layNgoaiTe = async () => {
+    let res = await adminApi.layNgoaiTe()
+    console.log("res", res);
+    setMoney(res?.data?.menhGia)
+    moneya = res?.data?.menhGia
+
+  }
+  useEffect(() => {
+    layNgoaiTe()
+  }, []);
+
   const [paid, setPaid] = React.useState(false);
   const [error, setError] = React.useState(null);
   const paypalRef = React.useRef();
@@ -21,7 +35,7 @@ export default function ReactPayPal(props) {
                 description: "Your description",
                 amount: {
                   currency_code: "USD",
-                  value: parseFloat(((sum + 10000)/230000).toFixed(1)),
+                  value: parseFloat(((sum)/moneya).toFixed(1)),
                 },
               },
             ],
@@ -42,9 +56,8 @@ export default function ReactPayPal(props) {
 
   // If the payment has been made
   if (paid) {
-    setTimeout(() => {
+      props.setPayment(true)
       props.setCheckout(false);
-    }, 1000);
     return <div>Thanh toán thành công</div>;
   }
 

@@ -22,6 +22,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { USER_LOGIN } from './util/setting/config';
 import { Fragment, useEffect } from 'react';
 import axios from 'axios';
+import CartManager from './pages/cartManager/cartManager';
+import Carts from './components/Admin/carts/carts';
+import Promotion from './components/Admin/promotion/promotion';
 
 function App() {
   const user = JSON.parse(localStorage.getItem(USER_LOGIN))
@@ -33,7 +36,7 @@ function App() {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `${DOMAIN}/product`,
+      url: `${DOMAIN}/products`,
       data: product
     }).then((data) => {
       dispatch({
@@ -55,6 +58,7 @@ function App() {
           <Route path='/shop' element={<Shop />} />
           <Route path='/product/:id' element={<ShopDetails />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/cartManager' element={<CartManager />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/login' element={<Login />} />
@@ -67,6 +71,8 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path='/admin/product' element={<Products />} />
+          <Route path='/admin/carts' element={<Carts />} />
+          <Route path='/admin/promotion' element={<Promotion />} />
           <Route path='/admin/account' element={<AccountAdmin />} />
           <Route path='/admin/revenue' element={<Revenue />} />
           <Route path='/admin/managerUser' element={<ManagerUser />} />

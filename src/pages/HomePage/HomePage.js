@@ -11,7 +11,7 @@ export default function HomePage() {
         <Fragment>
             {/* <Carousel /> */}
             <Featured />
-            <Categories />
+            {/* <Categories /> */}
             <Product productType={0} sectionName = "Sản phẩm mới về"/>
             <Product productType={1} sectionName = "Sản phẩm bán chạy"/>
             <Offer />

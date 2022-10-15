@@ -15,14 +15,9 @@ export const CartReducer = (state = stateDefault, action) => {
                 cartUpdate.push(action.item)
             } else {
                 let i = cartUpdate.findIndex(item => { return (item.maSP === action.item.maSP && item.sizeName === action.item.sizeName) })
-                console.log("cartUpdate", cartUpdate);
-            console.log("action.item", action.item);
-            console.log("i", i);
                 if (i !== -1) {
-                    console.log("Có rồi")
                     cartUpdate[i].number += action.item.number;
                 } else {
-                    console.log("Mới")
                     cartUpdate.push(action.item);
                 }
             }
@@ -31,12 +26,12 @@ export const CartReducer = (state = stateDefault, action) => {
             return { ...state }
         }
         case 'TANG_GIAM': {
-
             let cartUpdate = [...state.carts];
             let i = cartUpdate.findIndex(sp => sp.id === action.id);
 
             if (i !== -1) {
                 if (action.boolean) {
+                    if(cartUpdate[i].number < cartUpdate[i].amount)
                     cartUpdate[i].number += 1;
                 } else if (!action.boolean) {
                     if (cartUpdate[i].number > 1) {
@@ -87,7 +82,6 @@ export const CartReducer = (state = stateDefault, action) => {
         }
         case "DONE": {
             let cartUpdate = [];
-            alert("Đặt Hàng Thành Công")
             localStorage.removeItem("CART");
             state.carts = cartUpdate;
             return { ...state }

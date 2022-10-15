@@ -20,12 +20,17 @@ export default function Header() {
         if (!userLogin) {
             return (
                 <Fragment>
-                    <NavLink to='/login' className="dropdown-item">Sign in</NavLink>
-                    <NavLink to='/register' className="dropdown-item">Sign up</NavLink>
+                    <NavLink to='/login' className="dropdown-item">Đăng nhập</NavLink>
+                    <NavLink to='/register' className="dropdown-item">Đăng ký</NavLink>
                 </Fragment>
             )
         } else {
-            return <button onClick={() => handleClicker()} className="dropdown-item">Logout</button>
+            return <>
+            <button onClick={() => navigate('/cartManager')} className="dropdown-item">Đơn mua</button>
+
+            <button onClick={() => handleClicker()} className="dropdown-item">Đăng xuất</button>
+
+            </>
         }
     }
     const showSearch = () => {
@@ -140,7 +145,7 @@ export default function Header() {
                         <div className="col-lg-4 col-6 text-right">
                             <div className="d-inline-flex align-items-center">
                                 <div className="btn-group">
-                                    <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">{!userLogin ? "My Account" : `Chào ${userLogin.hoTen}`}</button>
+                                    <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">{!userLogin ? "Tài khoản" : `Chào ${userLogin.hoTen}`}</button>
                                     <div className="dropdown-menu dropdown-menu-right">
                                         {handleLogin()}
                                     </div>
@@ -204,16 +209,16 @@ export default function Header() {
                                 </button>
                                 <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                     <div className="navbar-nav mr-auto py-0">
-                                        <NavLink to='/' className="nav-item nav-link active">Home</NavLink>
-                                        <NavLink to='/shop' className="nav-item nav-link">Shop</NavLink>
-                                        <div className="nav-item dropdown">
+                                        <NavLink to='/' className="nav-item nav-link active">Trang chủ</NavLink>
+                                        <NavLink to='/shop' className="nav-item nav-link">Cửa hàng</NavLink>
+                                        {/* <div className="nav-item dropdown">
                                             <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i className="fa fa-angle-down mt-1" /></a>
                                             <div className="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                                 <NavLink to='/cart' className="dropdown-item">Shopping Cart</NavLink>
                                                 <NavLink to='/checkout' className="dropdown-item">Checkout</NavLink>
                                             </div>
                                         </div>
-                                        <NavLink to='/contact' className="nav-item nav-link">Contact</NavLink>
+                                        <NavLink to='/contact' className="nav-item nav-link">Contact</NavLink> */}
                                     </div>
                                     <div className="navbar-nav ml-auto py-0 d-none d-lg-block">
                                         <a href='#' className="btn px-0">
