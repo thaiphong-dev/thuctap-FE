@@ -20,9 +20,9 @@ export default function Checkout() {
     const arrProduct = [];
     for (let i = 0; i < carts.length; i++) {
       arrProduct.push({
-        number: carts[i].number,
-        price: (carts[i]?.discount > 0 ? carts[i].discount : carts[i]?.gia),
-        discount: 0,
+        soLuong: carts[i].number,
+        gia: (carts[i]?.discount > 0 ? carts[i].discount : carts[i]?.gia),
+        phanTramGiam: 0,
         maSize: carts[i].size,
         maSP: carts[i].maSP,
         maCTSP: carts[i].maCTSP,
@@ -57,11 +57,11 @@ export default function Checkout() {
   const formik = useFormik({
     initialValues: {
       maKH: userLogin.maKH,
-      fullname: userLogin.hoTen,
+      hoTen: userLogin.hoTen,
       email: userLogin.email,
-      phone: userLogin.sdt,
-      address: userLogin.diaChi,
-      note: "",
+      sdt: userLogin.sdt,
+      diaChi: userLogin.diaChi,
+      moTa: "",
       ngayTao: new Date(),
       trangThai: 0,
       maNVGiao: "employee01",
@@ -130,8 +130,8 @@ export default function Checkout() {
                   <div className="col-md-6 form-group">
                     <label>Họ và tên</label>
                     <input
-                      value={formik.values.fullname}
-                      name="fullname"
+                      value={formik.values.hoTen}
+                      name="hoTen"
                       onChange={formik.handleChange}
                       className="form-control"
                       type="text"
@@ -152,8 +152,8 @@ export default function Checkout() {
                   <div className="col-md-6 form-group">
                     <label>Số điện thoại</label>
                     <input
-                      value={formik.values.phone}
-                      name="phone"
+                      value={formik.values.sdt}
+                      name="sdt"
                       onChange={formik.handleChange}
                       className="form-control"
                       type="text"
@@ -163,8 +163,8 @@ export default function Checkout() {
                   <div className="col-md-6 form-group">
                     <label>Địa chỉ</label>
                     <input
-                      value={formik.values.address}
-                      name="address"
+                      value={formik.values.diaChi}
+                      name="diaChi"
                       onChange={formik.handleChange}
                       className="form-control"
                       type="text"
@@ -175,8 +175,8 @@ export default function Checkout() {
                   <div className="col-md-6 form-group">
                     <label>Ghi Chú</label>
                     <input
-                      value={formik.values.note}
-                      name="note"
+                      value={formik.values.moTa}
+                      name="moTa"
                       onChange={formik.handleChange}
                       className="form-control"
                       type="text"

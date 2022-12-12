@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import adminApi from "~/api/adminApi";
 
-let moneya= 1
+let _money= 23000
 export default function ReactPayPal(props) {
   const [money, setMoney] = useState(1)
   const layNgoaiTe = async () => {
     let res = await adminApi.layNgoaiTe()
     console.log("res", res);
     setMoney(res?.data?.menhGia)
-    moneya = res?.data?.menhGia
+    money = res?.data?.menhGia
 
   }
   useEffect(() => {
@@ -20,7 +20,8 @@ export default function ReactPayPal(props) {
   const paypalRef = React.useRef();
   let sum = 0
   props.arr.forEach(ele => {
-    sum +=  ele.price
+    console.log("ele", ele);
+    sum +=  ele.gia
   });
   // console.log("sum", );
   // To show PayPal buttons once the component loads
@@ -35,7 +36,7 @@ export default function ReactPayPal(props) {
                 description: "Your description",
                 amount: {
                   currency_code: "USD",
-                  value: parseFloat(((sum)/moneya).toFixed(1)),
+                  value: parseFloat(((sum)/_money).toFixed(1)),
                 },
               },
             ],

@@ -27,13 +27,14 @@ export default function Promotion() {
   const [nameCategory, setNameCategory] = useState();
   const [products, setProducts] = useState([]);
   const [productList, setProductList] = useState([]);
+  const [promotion, setPromotion] = useState([]);
   const [productListMore, setProductListMore] = useState([]);
   const [statusProduct, setStatusProduct] = useState("1");
   const [infoProduct, setInfoProduct] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState();
   const [show, setShow] = useState(false);
-  const [tiLe, setTile] = useState();
+  // const [promotion, setpromotion] = useState();
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -45,14 +46,14 @@ export default function Promotion() {
   const handleAddProduct = async () => {
     const payload = {
       maKM: idPromo,
-      tiLeGiam: promo,
-      productList: productListMore,
+      phanTramGiam: 10,
+      dssp: productListMore,
     };
     console.log("product");
 
     await adminApi.themSanPhamKM(payload);
   };
-  const tiLeGiam = [
+  const phanTramGiam = [
     { label: "5", value: 5 },
     { label: "10", value: 10 },
     { label: "15", value: 15 },
@@ -64,7 +65,7 @@ export default function Promotion() {
   const [show1, setShow1] = useState(false);
   const handleShow1 = (item) => {
     setIdPromo(item.maKM);
-    setPromo(item?.detail[0].phanTramGiam);
+    setPromo(item?.detail[0]?.phanTramGiam);
     let list = [];
     for (let i = 0; i < products?.length; ++i) {
       for (let j = 0; j < item.detail?.length; ++j) {
@@ -135,7 +136,6 @@ export default function Promotion() {
   const [des, setDes] = useState();
   const formik = useFormik({
     initialValues: {},
-
     onSubmit: () => {
       const payload = {
         ngayApDung: startDate,
@@ -143,9 +143,10 @@ export default function Promotion() {
         dssp: productList,
         moTa: des,
         maNV: user.maNV,
-        tiLeGiam: tiLe,
+        phanTramGiam: promotion,
       };
       adminApi.taoKhuyenMai(payload);
+      console.log("user", user);
 
       setShow(false);
       setStartDate(new Date());
@@ -204,6 +205,7 @@ export default function Promotion() {
                         <th>Nhân viên tạo</th>
                         <th>Ngày bắt đầu</th>
                         <th>Ngày kết thúc</th>
+                        <th>Phần trăm giảm</th>
                         <th>Mô tả</th>
                         <th></th>
                       </tr>
@@ -286,7 +288,14 @@ export default function Promotion() {
                   onChange={(e) => setProductList(e)}
                 ></Select>
               </Col>
-
+              <Col>
+                <Form.Label>Phần trăm giảm</Form.Label>
+                <Select
+                  
+                  options={phanTramGiam}
+                  onChange={(e) =>{ setPromotion(e.value)}}
+                ></Select>
+              </Col>
               <Col>
                 <Form.Label>Mô Tả</Form.Label>
                 <Form.Control

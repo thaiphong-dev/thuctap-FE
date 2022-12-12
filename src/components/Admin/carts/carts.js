@@ -140,9 +140,9 @@ export default function Carts() {
     const response = await AdminApi.getListEmployee()
       .then((data) => {
         console.log("getAllEmployee", data?.data);
-        setNvDuyet(data?.data.nvDuyet);
-        setNvGiao(data?.data.nvGiao);
-        setMaNVGiao(data?.data.nvGiao[0].detail[0].maNV)
+        setNvDuyet(data?.data?.nvDuyet);
+        setNvGiao(data?.data?.nvGiao);
+        setMaNVGiao(data?.data.nvGiao[0]?.detail[0]?.maNV)
       })
       .catch((err) => {
         console.log("err", err.message);
@@ -383,6 +383,7 @@ export default function Carts() {
                     </thead>
                     <tbody>
                       {listCartsRender?.map((item, index) => {
+                        console.log("item", item);
                         return (
                           <tr key={index}>
                             <td>{item.idGio}</td>
@@ -415,11 +416,11 @@ export default function Carts() {
                                 <option value={null}>
                                   </option>
                                 {nvGiao?.map((x, index) => (
-                                  <option key={index} value={x.detail[0].maNV}>
-                                    {x.detail[0].hoTen}
+                                  <option key={index} value={x.detail[0]?.maNV}>
+                                    {x.detail[0]?.hoTen}
                                   </option>
                                 ))}
-                              </Form.Select> : <>{layTenNV(item.maNVGiao)}</>}
+                              </Form.Select> : <>{layTenNV(item?.maNVGiao)}</>}
                               
                               {/* {layTenNV(item.maNVGiao)} */}
                             </td>
@@ -523,8 +524,8 @@ export default function Carts() {
                     <label>Họ và tên</label>
                     <input
                       disabled
-                      value={infoCart.hoTen}
-                      name="fullname"
+                      value={infoCart?.hoTen}
+                      name="hoTen"
                       className="form-control"
                       type="text"
                     />
@@ -533,7 +534,7 @@ export default function Carts() {
                     <label>Email</label>
                     <input
                       disabled
-                      value={infoCart.email}
+                      value={infoCart?.email}
                       name="email"
                       className="form-control"
                       type="text"
@@ -544,7 +545,7 @@ export default function Carts() {
                     <input
                       disabled
                       value={infoCart.sdt}
-                      name="phone"
+                      name="sdt"
                       className="form-control"
                       type="text"
                     />
@@ -554,7 +555,7 @@ export default function Carts() {
                     <input
                       disabled
                       value={"70 Nguyễn Sỹ Sách"}
-                      name="address"
+                      name="diaChi"
                       className="form-control"
                       type="text"
                     />
@@ -565,7 +566,7 @@ export default function Carts() {
                     <input
                       disabled
                       value={infoCart.note}
-                      name="note"
+                      name="moTa"
                       className="form-control"
                       type="text"
                       height={90}
