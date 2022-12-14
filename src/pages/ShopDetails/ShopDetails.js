@@ -23,9 +23,11 @@ export default function ShopDetails() {
   const [maCTSP, setMaCTSP] = useState();
 
   const handleChange = (e) => {
+    console.log("e", e.target.value);
     setSize(e.target.value);
-    productID[0]?.detail.forEach(x => {
-        if(e.target.value == x.maSize) {
+    productID.ctsanPhams.forEach(x => {
+      console.log("x.size.maSize", x.size.maSize);
+        if(e.target.value == x.size.maSize) {
             setSizePrice(x.gia )
             setSizePriceDiscount(x.gia - x.gia*x?.phanTramGiam/100)
             setAmount(x.slTon)
@@ -53,10 +55,10 @@ export default function ShopDetails() {
   const params = useParams();
   const addCart = (item) => {
     let name;
-    let tenSP = item[0].tenSP;
+    let tenSP = item.tenSP;
     let gia = sizePrice;
     let discount = sizePriceDiscount;
-    let hinhAnh = item[0].hinhAnh;
+    let hinhAnh = item.hinhAnh;
     let sizeInt = parseInt(size);
     if (sizeInt === 1) {
       name = "S";
@@ -95,10 +97,11 @@ export default function ShopDetails() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const getShopDetails = async () => {
-      await ProductsApi.getProductDetail({ maSP: params.id })
+      await ProductsApi.getProductById(params.id)
         .then((data) => {
-            setSizePrice(data.data[0].detail[0].gia)
-            setSizePriceDiscount(data.data[0].detail[0].gia - data.data[0].detail[0].gia*data.data[0].detail[0]?.phanTramGiam/100 )
+          console.log("data", data.data);
+            setSizePrice(data.data.ctsanPhams[0].gia)
+            setSizePriceDiscount(data.data.ctsanPhams[0].gia - data.data.ctsanPhams[0].gia*data.data.ctsanPhams[0]?.phanTramGiam/100 )
           dispatch({
             type: "GET_PRODUCT",
             productID: data.data,
@@ -132,9 +135,9 @@ export default function ShopDetails() {
         {/* Breadcrumb End */}
         {/* Shop Detail Start */}
         <div className="container-fluid pb-5">
-          {productID?.map((item, index) => {
-            return (
-              <div className="row px-xl-5" key={index}>
+ 
+           
+              <div className="row px-xl-5" key={productID?.maSP}>
                 <div className="col-lg-5 mb-30">
                   <div
                     id="product-carousel"
@@ -146,7 +149,7 @@ export default function ShopDetails() {
                         <img
                           width={496}
                           height={496}
-                          src={item.hinhAnh}
+                          src={productID.hinhAnh}
                           alt="Image"
                         />
                       </div>
@@ -176,7 +179,7 @@ export default function ShopDetails() {
                 </div>
                 <div className="col-lg-7 h-auto mb-30">
                   <div className="h-100 bg-light p-30">
-                    <h3>{item.tenSP}</h3>
+                    <h3>{productID.tenSP}</h3>
                     <div className="d-flex mb-3">
                       <div className="text-primary mr-2">
                         <small className="fas fa-star" />
@@ -199,13 +202,13 @@ export default function ShopDetails() {
                       {addCommas(sizePrice)}vnđ
                     </h3> */}
                   
-                    {/* <p className="mb-4">{item?.detail?.[0]?.moTa}</p> */}
+                    {/* <p className="mb-4">{item?.ctsanPhams?.[0]?.moTa}</p> */}
                     <div className="d-flex mb-3">
                       <strong className="text-dark mr-3">Sizes:</strong>
                       <form>
-                        {item.detail?.map((ele, index) => {
+                        {productID.ctsanPhams?.map((ele, index) => {
                             let sizeName = ''
-                          switch (ele.maSize) {
+                          switch (ele.size.maSize) {
                             case SIZE.S:
                                 sizeName = "S"
                               break;
@@ -241,14 +244,14 @@ export default function ShopDetails() {
                                 onChange={handleChange}
                                 type="radio"
                                 className="custom-control-input"
-                                id={ele.maSize}
+                                id={ele.size.maSize}
                                 name="size"
-                                value={ele.maSize}
+                                value={ele.size.maSize}
                               />
                               <label
                                 name="size"
                                 className="custom-control-label"
-                                htmlFor={ele.maSize}
+                                htmlFor={ele.size.maSize}
                               >
                                 {sizeName} :{" "}
                               </label>
@@ -310,8 +313,8 @@ export default function ShopDetails() {
                   </div>
                 </div>
               </div>
-            );
-          })}
+           
+          
           <div className="row px-xl-5">
             <div className="col">
               <div className="bg-light p-30">
@@ -342,7 +345,7 @@ export default function ShopDetails() {
                   <div className="tab-pane fade show active" id="tab-pane-1">
                     <h4 className="mb-3">Mô tả sản phẩm</h4>
                     <p>
-                      {productID[0]?.detail[0].moTa}
+                      {productID?.ctsanPhams?.[0].moTa}
                     </p>
                     
                   </div>

@@ -67,7 +67,7 @@ export default function Product() {
 
     const getInfoProduct = async (maSP) => {
         console.log(maSP);
-        await ProductsApi.getProductDetail({ maSP: maSP })
+        await ProductsApi.getProductById(maSP)
         .then((data) => {
             setInfoProduct(data.data[0])
             console.log("infoProduct",infoProduct)
@@ -272,7 +272,7 @@ export default function Product() {
                                                         <td>{item.maSP}</td>
                                                         <td>{item.hinhAnh.substring(20, -1)}</td>
                                                         <td>{item.tenSP}</td>
-                                                        <td>{formatPrice(`${item.detail[0].gia}`)}</td>
+                                                        <td>{formatPrice(`${item.ctsanPhams[0].gia}`)}</td>
                                                         <td>{item.tongSLTon}</td>
                                                         <td>
                                                             {statusProduct === "1" ?

@@ -21,6 +21,7 @@ export default function Revenue() {
       data : monthRange,
       name: user.hoTen
     };
+    console.log("payload", payload);
     await axios
       .post(`${DOMAIN}/create-baocao-pdf`, payload)
       .then(() =>

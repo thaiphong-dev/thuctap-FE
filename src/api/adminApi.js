@@ -13,7 +13,7 @@ const adminApi = {
   },
 
   duyetDonHang: (param) => {
-    const url = `/admin/duyet`
+    const url = `/cart/update`
     return axiosClient.post(url, param)
   },
 

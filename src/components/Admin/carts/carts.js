@@ -57,6 +57,8 @@ export default function Carts() {
       ...item
       
     }
+
+    console.log("hoa dơn", payload);
     await axios.post(`${DOMAIN}/create-hoadon-pdf`, payload)
     .then(() => axios.get(`${DOMAIN}/get-hoadon-pdf`, {responseType: "blob"}))
     .then((res) => {
@@ -71,7 +73,7 @@ export default function Carts() {
     setShow1(false);
   };
   const user = JSON.parse(localStorage.getItem(USER_LOGIN));
-
+  console.log("user", user);
   const [maNVGiao, setMaNVGiao] = useState()
   const handlecart = async (item) => {
     var targetDate = new Date();
@@ -139,10 +141,9 @@ export default function Carts() {
   const getAllEmployee = async () => {
     const response = await AdminApi.getListEmployee()
       .then((data) => {
-        console.log("getAllEmployee", data?.data);
-        setNvDuyet(data?.data?.nvDuyet);
-        setNvGiao(data?.data?.nvGiao);
-        setMaNVGiao(data?.data.nvGiao[0]?.detail[0]?.maNV)
+        setNvDuyet(data?.data?.filter(x => x?.maQuyen !==4 ));
+        setNvGiao(data?.data?.filter(x => x?.maQuyen == 3 ));
+        setMaNVGiao(data?.data.filter(x => x?.maQuyen == 3 )?.[0]?.maNV)
       })
       .catch((err) => {
         console.log("err", err.message);
@@ -203,15 +204,15 @@ export default function Carts() {
       let list = listCart;
 
       for (let i = 0; i < listProduct?.length; ++i) {
-        for (let j = 0; j < listProduct[i].detail.length; ++j) {
+        for (let j = 0; j < listProduct[i].ctGioHangs?.length; ++j) {
           for (let k = 0; k < list.length; ++k) {
-            for (let l = 0; l < list[k].detail.length; ++l) {
+            for (let l = 0; l < list[k].ctGioHangs?.length; ++l) {
               if (
-                list[k].detail[l].maCTSP === listProduct[i].detail[j].maCTSP
+                list[k].ctGioHangs[l].maCTSP === listProduct[i].ctGioHangs?.[j].maCTSP
               ) {
-                list[k].detail[l].hinhAnh = listProduct[i].hinhAnh;
-                list[k].detail[l].tenSP = listProduct[i].tenSP;
-                list[k].detail[l].maSize = listProduct[i].detail[j].maSize;
+                list[k].ctGioHangs[l].hinhAnh = listProduct[i].hinhAnh;
+                list[k].ctGioHangs[l].tenSP = listProduct[i].tenSP;
+                list[k].ctGioHangs[l].maSize = listProduct[i].ctGioHangs?.[j].maSize;
               }
             }
           }
@@ -308,8 +309,8 @@ export default function Carts() {
     },
   });
   const layTenNV = (maNV) => {
-    let employee = nvDuyet?.find((x) => x?.detail[0]?.maNV == maNV);
-    return employee?.detail[0]?.hoTen ?? "";
+    let employee = nvDuyet?.find((x) => x?.maNV == maNV);
+    return employee?.hoTen ?? "";
   };
   const mappingSize = {
     1: "S",
@@ -413,11 +414,10 @@ export default function Carts() {
                                 name="status"
                                 style={{ width: "200px", marginLeft: "1rem" }}
                               >
-                                <option value={null}>
-                                  </option>
+                                
                                 {nvGiao?.map((x, index) => (
-                                  <option key={index} value={x.detail[0]?.maNV}>
-                                    {x.detail[0]?.hoTen}
+                                  <option key={index} value={x.maNV}>
+                                    {x.hoTen}
                                   </option>
                                 ))}
                               </Form.Select> : <>{layTenNV(item?.maNVGiao)}</>}
@@ -579,7 +579,7 @@ export default function Carts() {
                     <th>Size</th>
                     <th>Số lượng</th>
                     <th>Đơn giá</th>
-                    {infoCart?.detail?.map((item, index) => {
+                    {infoCart?.ctGioHangs?.map((item, index) => {
                       giaTong += parseInt(item?.gia * item?.soLuong);
                       return (
                         <tbody key={index} className="align">

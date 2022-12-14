@@ -30,7 +30,7 @@ const ProductsApi = {
     return axiosClient.post(url, param );
   },
   getProductById: (id) => {
-    const url = `/product/${id}`;
+    const url = `/productdetail/${id}`;
     return axiosClient.get(url);
   },
 };

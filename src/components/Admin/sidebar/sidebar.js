@@ -14,7 +14,7 @@ import { USER_LOGIN } from "~/util/setting/config";
 
 export default function Sidebar() {
   const user = JSON.parse(localStorage.getItem(USER_LOGIN));
-
+  console.log("user", user);
   return (
     <>
       <ul

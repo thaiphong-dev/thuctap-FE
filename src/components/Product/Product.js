@@ -25,14 +25,14 @@ export default function Product(props) {
       type: "ADD_CART",
       item: {
         ...item,
-        id: item?.detail[0].maCTSP,
-        gia: item?.detail[0].gia,
-        discount: item?.detail[0].gia - item?.detail[0].gia*item?.detail[0]?.phanTramGiam/100,
-        maCTSP: item?.detail[0].maCTSP,
+        id: item?.ctsanPhams[0].maCTSP,
+        gia: item?.ctsanPhams[0].gia,
+        discount: item?.ctsanPhams[0].gia - item?.ctsanPhams[0].gia*item?.ctsanPhams[0]?.phanTramGiam/100,
+        maCTSP: item?.ctsanPhams[0].maCTSP,
         number: 1,
         size: 1,
         sizeName: "S",
-        amount: item?.detail[0].slTon,
+        amount: item?.ctsanPhams[0].slTon,
       },
     });
   };
@@ -125,13 +125,13 @@ export default function Product(props) {
                       </a>
                       <div className="d-flex align-items-center justify-content-center mt-2">
 
-                       {item?.detail?.[0]?.phanTramGiam && item?.detail?.[0]?.phanTramGiam > 0 ? <>
-                        <h5>{addCommas(removeNonNumeric(item?.detail?.[0]?.gia - item?.detail?.[0]?.gia*item?.detail?.[0]?.phanTramGiam/100))}</h5><h6 className="text-muted ml-2"><del>{addCommas(removeNonNumeric(item?.detail?.[0]?.gia))}</del></h6></>
+                       {item?.ctsanPhams?.[0]?.phanTramGiam && item?.ctsanPhams?.[0]?.phanTramGiam > 0 ? <>
+                        <h5>{addCommas(removeNonNumeric(item?.ctsanPhams?.[0]?.gia - item?.ctsanPhams?.[0]?.gia*item?.ctsanPhams?.[0]?.phanTramGiam/100))}</h5><h6 className="text-muted ml-2"><del>{addCommas(removeNonNumeric(item?.ctsanPhams?.[0]?.gia))}</del></h6></>
                       :  <h5>
-                      {addCommas(removeNonNumeric(item?.detail?.[0]?.gia))}
+                      {addCommas(removeNonNumeric(item?.ctsanPhams?.[0]?.gia))}
                     </h5>} 
                         {/* <h5>
-                          {addCommas(removeNonNumeric(item?.detail?.[0]?.gia))}
+                          {addCommas(removeNonNumeric(item?.ctsanPhams?.[0]?.gia))}
                         </h5> */}
 
                       </div>

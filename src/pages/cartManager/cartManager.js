@@ -99,15 +99,15 @@ export default function CartManager() {
       let list = listCart;
 
       for (let i = 0; i < listProduct?.length; ++i) {
-        for (let j = 0; j < listProduct[i].detail.length; ++j) {
+        for (let j = 0; j < listProduct[i].ctGioHangs?.length; ++j) {
           for (let k = 0; k < list.length; ++k) {
-            for (let l = 0; l < list[k].detail.length; ++l) {
+            for (let l = 0; l < list[k].ctGioHangs?.length; ++l) {
               if (
-                list[k].detail[l].maCTSP === listProduct[i].detail[j].maCTSP
+                list[k].ctGioHangs[l].maCTSP === listProduct[i].ctGioHangs[j].maCTSP
               ) {
-                list[k].detail[l].hinhAnh = listProduct[i].hinhAnh;
-                list[k].detail[l].tenSP = listProduct[i].tenSP;
-                list[k].detail[l].maSize = listProduct[i].detail[j].maSize;
+                list[k].ctGioHangs[l].hinhAnh = listProduct[i].hinhAnh;
+                list[k].ctGioHangs[l].tenSP = listProduct[i].tenSP;
+                list[k].ctGioHangs[l].maSize = listProduct[i].ctGioHangs[j].maSize;
               }
             }
           }
@@ -172,10 +172,10 @@ export default function CartManager() {
                     >
                       <th>Sản phẩm</th>
                       <th>Giá</th>
-                      <th>size</th>
+                      {/* <th>size</th> */}
                       <th>Số lượng</th>
                       <th>thành tiền</th>
-                      {cart.detail.map((item, index) => {
+                      {cart.ctGioHangs.map((item, index) => {
                         giaTong += parseInt(item?.gia * item?.soLuong)
                         return (
                           <tbody className="align">
@@ -192,9 +192,9 @@ export default function CartManager() {
                               {addCommas(removeNonNumeric(item?.gia))}
 
                               </td>
-                              <td className="align-middle">
+                              {/* <td className="align-middle">
                                 {mappingSize[item?.maSize]}
-                              </td>
+                              </td> */}
                               <td className="align-middle">
                                 {addCommas(
                                   removeNonNumeric(item?.soLuong)
