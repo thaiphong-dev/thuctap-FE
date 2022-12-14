@@ -33,11 +33,11 @@ const adminApi = {
   },
 
   taoKhuyenMai: (param) => {
-    const url = `/admin/create-promotion`
+    const url = `/promotion/create`
     return axiosClient.post(url, param)
   },
   themSanPhamKM: (param) => {
-    const url = `/admin/add-product-promotion`
+    const url = `/promotion/addProduct`
     return axiosClient.post(url, param)
   }
 //   inBaoCao: (param) {

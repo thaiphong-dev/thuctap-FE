@@ -65,11 +65,11 @@ export default function Promotion() {
   const [show1, setShow1] = useState(false);
   const handleShow1 = (item) => {
     setIdPromo(item.maKM);
-    setPromo(item?.detail[0]?.phanTramGiam);
+    setPromo(item?.ctkhuyenMais[0]?.phanTramGiam);
     let list = [];
     for (let i = 0; i < products?.length; ++i) {
-      for (let j = 0; j < item.detail?.length; ++j) {
-        if (products[i].detail[0].maCTSP === item.detail[j].maCTSP) {
+      for (let j = 0; j < item.ctkhuyenMais?.length; ++j) {
+        if (products[i].ctkhuyenMais[0].maCTSP === item.ctkhuyenMais[j].maCTSP) {
           list.push(products[i]);
         }
       }
@@ -156,8 +156,8 @@ export default function Promotion() {
   });
 
   const layTenNV = (maNV) => {
-    let employee = nvDuyet?.find((x) => x?.detail[0]?.maNV == maNV);
-    return employee?.detail[0]?.hoTen ?? "";
+    let employee = nvDuyet?.find((x) => x?.ctkhuyenMais[0]?.maNV == maNV);
+    return employee?.ctkhuyenMais[0]?.hoTen ?? "";
   };
 
   function formattedDate(d = new Date()) {
@@ -218,7 +218,7 @@ export default function Promotion() {
                             <td>{layTenNV(item.maNV)}</td>
                             <td>{formattedDate(new Date(item.ngayApDung))}</td>
                             <td>{formattedDate(new Date(item.ngayKetThuc))}</td>
-                            <td>{item?.detail[0]?.phanTramGiam}</td>
+                            <td>{item?.ctkhuyenMais[0]?.phanTramGiam}</td>
                             <td>{item.mota}</td>
                             <td>
                               <button

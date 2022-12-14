@@ -18,20 +18,28 @@ export default function Revenue() {
 
   const handlePrint = async () => {
     const payload = {
-      data : monthRange,
-      name: user.hoTen
+      templateName: "baoCao",
+      pdfFileName: "baoCao.pdf",
+      data : {
+      list: monthRange,
+      name: user.hoTen,
+      ngay: new Date().getDate(),
+      thang: new Date().getMonth(),
+      nam: new Date().getFullYear(),
+      length: monthRange?.length  - 1,
+      }
     };
     console.log("payload", payload);
     await axios
-      .post(`${DOMAIN}/create-baocao-pdf`, payload)
-      .then(() =>
-        axios.get(`${DOMAIN}/get-baocao-pdf`, { responseType: "blob" })
-      )
-      .then((res) => {
-        const pdfBlob = new Blob([res.data], { type: "application/pdf" });
+      .post(`${DOMAIN}/get-baocao-pdf`, payload)
+      // .then(() =>
+      //   axios.get(`${DOMAIN}/get-baocao-pdf`, { responseType: "blob" })
+      // )
+      // .then((res) => {
+      //   const pdfBlob = new Blob([res.data], { type: "application/pdf" });
 
-        saveAs(pdfBlob, "baocaodoanhthu.pdf");
-      });
+      //   saveAs(pdfBlob, "baocaodoanhthu.pdf");
+      // });
   };
 
   useEffect(() => {
@@ -53,7 +61,7 @@ export default function Revenue() {
         let price = 0;
         let list = revenue?.filter((x) =>new Date(x?.ngayTao).getMonth() === count && new Date(x?.ngayTao).getFullYear() === year );
         list?.forEach((e) => {
-          e.detail?.forEach((x) => {
+          e.ctGioHangs?.forEach((x) => {
             price += x?.gia * x?.soLuong;
           });
         });
